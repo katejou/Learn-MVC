@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3eae493abaf24c8d8bbd2707165845c8" Name="Diagram1" >
+        <EntityTypeShape EntityType="testModel.Employee" Width="1.5" PointX="2.375" PointY="0.5" FillColor="128, 255, 255" />
+        <EntityTypeShape EntityType="testModel.Ticket" Width="1.5" PointX="6.625" PointY="1.625" IsExpanded="true" FillColor="192, 255, 192" />
+        <EntityTypeShape EntityType="testModel.Administrator" Width="1.5" PointX="2.375" PointY="2.5" FillColor="255, 255, 192" />
+        <EntityTypeShape EntityType="testModel.QA" Width="1.5" PointX="4.375" PointY="3.75" FillColor="255, 255, 192" />
+        <EntityTypeShape EntityType="testModel.RD" Width="1.5" PointX="4.375" PointY="2.125" FillColor="255, 255, 192" />
+        <EntityTypeShape EntityType="testModel.PM" Width="1.5" PointX="4.375" PointY="0.5" FillColor="255, 255, 192" />
+        <AssociationConnector Association="testModel.EmployeeTicket" />
+        <AssociationConnector Association="testModel.EmployeeAdministrator" />
+        <AssociationConnector Association="testModel.EmployeeRD" />
+        <AssociationConnector Association="testModel.EmployeePM" />
+        <AssociationConnector Association="testModel.EmployeeQA" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

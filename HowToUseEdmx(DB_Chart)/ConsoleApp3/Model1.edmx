@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="testModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="testModelStoreContainer" />
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="testModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="testEntities" annotation:LazyLoadingEnabled="true" >
+          <EntitySet Name="EmployeeSet" EntityType="testModel.Employee" />
+          <EntitySet Name="TicketSet" EntityType="testModel.Ticket" />
+          <EntitySet Name="AdministratorSet" EntityType="testModel.Administrator" />
+          <EntitySet Name="QASet" EntityType="testModel.QA" />
+          <EntitySet Name="RDSet" EntityType="testModel.RD" />
+          <EntitySet Name="PMSet" EntityType="testModel.PM" />
+          <AssociationSet Name="EmployeeTicket" Association="testModel.EmployeeTicket">
+            <End Role="Employee" EntitySet="EmployeeSet" />
+            <End Role="Ticket" EntitySet="TicketSet" />
+          </AssociationSet>
+          <AssociationSet Name="EmployeeAdministrator" Association="testModel.EmployeeAdministrator">
+            <End Role="Employee" EntitySet="EmployeeSet" />
+            <End Role="Administrator" EntitySet="AdministratorSet" />
+          </AssociationSet>
+          <AssociationSet Name="EmployeeRD" Association="testModel.EmployeeRD">
+            <End Role="Employee" EntitySet="EmployeeSet" />
+            <End Role="RD" EntitySet="RDSet" />
+          </AssociationSet>
+          <AssociationSet Name="EmployeePM" Association="testModel.EmployeePM">
+            <End Role="Employee" EntitySet="EmployeeSet" />
+            <End Role="PM" EntitySet="PMSet" />
+          </AssociationSet>
+          <AssociationSet Name="EmployeeQA" Association="testModel.EmployeeQA">
+            <End Role="Employee" EntitySet="EmployeeSet" />
+            <End Role="QA" EntitySet="QASet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="Employee_Id" />
+          </Key>
+          <Property Name="Employee_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="名稱" Type="String" Nullable="false" />
+          <Property Name="密碼" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ticket">
+          <Key>
+            <PropertyRef Name="Ticket_Id" />
+          </Key>
+          <Property Name="Ticket_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Serverity" Type="String" Nullable="false" />
+          <Property Name="Priority" Type="String" Nullable="false" />
+          <Property Name="Type" Type="String" Nullable="false" />
+          <Property Name="Summary" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" />
+          <NavigationProperty Name="Employee_Id" Relationship="testModel.EmployeeTicket" FromRole="Ticket" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="Administrator">
+          <Key>
+            <PropertyRef Name="Admin_Id" />
+          </Key>
+          <Property Name="Admin_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Employee_Id" Relationship="testModel.EmployeeAdministrator" FromRole="Administrator" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="QA">
+          <Key>
+            <PropertyRef Name="QA_Id" />
+          </Key>
+          <Property Name="QA_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Employee_Id" Relationship="testModel.EmployeeQA" FromRole="QA" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="RD">
+          <Key>
+            <PropertyRef Name="RD_Id" />
+          </Key>
+          <Property Name="RD_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Employee_Id" Relationship="testModel.EmployeeRD" FromRole="RD" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="PM">
+          <Key>
+            <PropertyRef Name="PM_Id" />
+          </Key>
+          <Property Name="PM_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Employee_Id" Relationship="testModel.EmployeePM" FromRole="PM" ToRole="Employee" />
+        </EntityType>
+        <Association Name="EmployeeTicket">
+          <End Type="testModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="testModel.Ticket" Role="Ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Employee_Id" />
+            </Principal>
+            <Dependent Role="Ticket">
+              <PropertyRef Name="Employee_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="EmployeeAdministrator">
+          <End Type="testModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="testModel.Administrator" Role="Administrator" Multiplicity="1" />
+        </Association>
+        <Association Name="EmployeeRD">
+          <End Type="testModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="testModel.RD" Role="RD" Multiplicity="1" />
+        </Association>
+        <Association Name="EmployeePM">
+          <End Type="testModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="testModel.PM" Role="PM" Multiplicity="1" />
+        </Association>
+        <Association Name="EmployeeQA">
+          <End Type="testModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="testModel.QA" Role="QA" Multiplicity="1" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="testModelStoreContainer" CdmEntityContainer="testEntities" />
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

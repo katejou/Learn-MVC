@@ -1,0 +1,40 @@
+﻿@model IEnumerable<ChattingBoard.Models.Comment>
+
+@{
+    ViewBag.Title = "我的留言";
+}
+
+<h2>我的留言</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Time)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Text)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Mark)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Time)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Text)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Mark)
+        </td>
+        <td>
+            @Html.ActionLink("前往該活動", "Event", new { id=item.Event_Id }) 
+        </td>
+    </tr>
+}
+
+</table>

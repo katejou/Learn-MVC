@@ -1,0 +1,97 @@
+﻿@model IEnumerable<ChattingBoard.Models.Event>
+
+@{
+    ViewBag.Title = "QueryMyEvent";
+    var button_txt = "";
+    var button_color = "";
+}
+
+<h2>我發起的活動</h2>
+<script>
+    function changeStatus(ele_id) {
+
+        var ele = document.getElementById(ele_id);
+        var status = ele.innerText;
+        var color = "";
+
+        if (status == "開放") {
+            action = "終止";
+            color = "purple"
+        }
+        else {
+            action = "開放";
+            color = "limegreen"
+        }
+
+        if (confirm('你確定要 ' + action + ' 這個活動?')) {
+            ele.disabled = true;
+            var actionUrl = ele.href;
+
+            $.post(actionUrl, function (data) {
+
+                if (data == "修改成功") {
+                    ele.innerText = action;
+                    ele.style.color = color;
+                }
+                alert(data);
+            })
+                .fail(function () {
+                    alert("執行不成功…");
+                })
+
+            ele.disabled = false;
+
+        }
+        return false;
+        // 不會真正的跳到該頁面，因為該 Controller，不，方法，並沒有任何View，只是用來處理Ajax
+    }
+</script>
+<table class="table">
+    <tr>
+        <th width="200px">
+            @Html.DisplayNameFor(model => model.Time)
+        </th>
+        <th width="300px">
+            @Html.DisplayNameFor(model => model.Event_Name)
+        </th>
+        <th width="100px">
+            @Html.DisplayNameFor(model => model.Event_Status)
+        </th>
+        <th>
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Time)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Event_Name)
+            </td>
+            <td>
+                @if (item.Event_Status == false)
+                {
+                    button_txt = "終止";
+                    button_color = "purple";
+                }
+                else
+                {
+                    button_txt = "開放";
+                    button_color = "limegreen";
+                }
+                @*<input type="button" value=@button_txt style="background-color:@button_color">*@
+                @Html.ActionLink(@button_txt, "ChangeEventStatus", new { id = item.Id },
+                    new { onclick = "return changeStatus('" + item.Id + "_status');", @style = "color:" + @button_color + ";", @id = item.Id + "_status" })
+            </td>
+            <td>
+                @Html.ActionLink("進入", "Event", new { id = item.Id, code = item.Secret_Code },
+                    new { @style = "color:blue;" })  |
+                @Html.ActionLink("刪除", "DelMyEvent", new { id = item.Id },
+                    new { onclick = "return confirm('你確定要刪除這個活動?');", @style = "color:red;" })
+            </td>
+        </tr>
+    }
+
+</table>

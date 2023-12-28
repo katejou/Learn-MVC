@@ -1,0 +1,101 @@
+﻿@model ChattingBoard.Models.Event
+
+@{
+    ViewBag.Title = "活動詳情";
+    Layout = "~/Views/Shared/_Layout_Event.cshtml";
+
+}
+
+<h2> @Html.DisplayFor(model => model.Event_Name)</h2>
+<div>
+    <hr />
+
+    <table width="100%">
+        <tr valign="top">
+            <td width="70%">
+                @* 活動內容 *@
+                <table width="100%" style="min-width: 500px; ">
+                    <tr><td>@Html.DisplayNameFor(model => model.Time)</td><td>@Html.DisplayFor(model => model.Time)</td></tr>
+                    <tr><td>@Html.DisplayNameFor(model => model.StartBy_Who)</td><td>@Html.DisplayFor(model => model.StartBy_Who)</td></tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(model => model.Event_Status)</td>
+                        <td>
+                            @if (@ViewBag.Event_Status == false)
+                            {
+                                <span style="color:purple">終止</span>
+                            }
+                            else
+                            {
+                                <span style="color:limegreen">開放</span>
+                            }
+                            @*@Html.DisplayFor(model => model.Event_Status)*@
+                        </td>
+                    </tr>
+                    <tr><td>@Html.DisplayNameFor(model => model.Description)</td><td>@Html.DisplayFor(model => model.Description)</td></tr>
+                    <tr>
+                        <td colspan="2">
+                            @if (@ViewBag.Picture != "")
+                            {
+                                @*不知道為什麼不可以在Web.config之中，限制這個資料夾的路徑…否則會無法顯示圖片*@
+                                //https://www.w3schools.com/howto/howto_css_modal_images.asp
+                                <span style="font-size: small; float:right; padding-right:50px;">點擊圖片以放大</span>
+                                <img id="myImg" src="~/PhotoFile/@ViewBag.Id/@ViewBag.Picture" width="100%" onclick="photoClick()" />
+                            }
+
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td width="30%"  min-width="300px" valign="top">
+                @* 活動留言 *@
+                <table style="min-width: 300px; ">
+                    <tr><td>留言:</td></tr>
+                    <tr valign="top">
+                        <td style="color: white;">
+                            <div style="min-width: 300px; height: 450px; overflow: auto; background-color: black; " id="messageBody">
+                                <table style="table-layout: fixed; ">
+                                    <tr><td style="word-break: break-all">XX1XXxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</td></tr>
+                                    <tr><td>XX2XX</td></tr>
+                                    <tr><td>XX3XX</td></tr>
+                                    <tr><td>XX4XX</td></tr>
+                                    <tr><td>XX5XX</td></tr>
+                                    <tr><td>XX6XX</td></tr>
+                                    <tr><td>XX7XX</td></tr>
+                                    <tr><td>XX8XX</td></tr>
+                                    <tr><td>XX9XX</td></tr>
+                                    <tr><td>XX10XX</td></tr>
+                                    <tr><td>XX11XX</td></tr>
+                                    <tr><td>XX12XX</td></tr>
+                                    <tr><td>XX13XX</td></tr>
+                                    <tr><td>XX14XX</td></tr>
+                                    <tr><td>XX15XX</td></tr>
+                                    <tr><td>XX16XX</td></tr>
+                                    <tr><td>XX17XX</td></tr>
+                                    <tr><td>XX18XX</td></tr>
+                                    <tr><td>XX19XX</td></tr>
+                                    <tr><td>XX20XX</td></tr>
+                                    <tr><td>XX21XX</td></tr>
+                                    <tr><td>XX22XX</td></tr>
+                                    <tr><td>XX23XX</td></tr>
+                                    <tr><td>XX24XX</td></tr>
+                                    <tr><td>XX25XX</td></tr>
+                                    <tr><td>XX26XX</td></tr>
+                                </table>
+                                @*這個是顯示所有紀錄的地方*@
+                            </div>
+                        </td>
+                    </tr>
+                    <tr valign="bottom">
+                        <td>
+                            <div style="float: left; width: 100%; padding: 5px 0px 5px 5px; background-color: black;">
+                                <input type="text" id="user_said"/>
+                                <button type="button" style="color:black;">送出</button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>
+

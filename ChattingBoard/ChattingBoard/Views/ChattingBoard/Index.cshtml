@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "首頁";
+}
+
+
+<div class="jumbotron" style="margin-top:50px;">
+    <h1>公司內部 - 聯誼留言板</h1>
+    <p style="margin:50px 0px 0px 45px;">歡迎 @ViewBag.Name</p>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <h2>發起活動</h2>
+        <p>
+            如︰訂餐﹑訂飲料﹑投票等
+        </p>
+        <p><a class="btn btn-default" href="~/ChattingBoard/StartEvent">去發起 &raquo;</a></p>
+    </div>
+    <div class="col-md-6">
+        <h2>查詢活動</h2>
+        <p>
+            查看所有已發起的活動
+        </p>
+        <p><a class="btn btn-default" href="~/ChattingBoard/QueryEvent">去查詢 &raquo;</a></p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <h2>我發起的活動</h2>
+        <p><a class="btn btn-default" href="~/ChattingBoard/QueryMyEvent">查看紀錄 &raquo;</a></p>
+    </div>
+    <div class="col-md-6">
+        <h2>我發出的留言</h2>
+        <p><a class="btn btn-default" href="~/ChattingBoard/QueryMyComment">查看紀錄 &raquo;</a></p>
+    </div>
+</div>

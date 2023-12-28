@@ -1,0 +1,76 @@
+﻿@model ChattingBoard.Models.Event
+
+@{
+    ViewBag.Title = "發起活動";
+}
+
+<h2>發起活動</h2>
+<script>
+    function checkSize(e) {
+        var files = e.files;
+        //alert(files);
+        //alert(files.length);
+        if (files != null || files.length != 0) {
+            //alert(files[0].name);
+            var filesize = ((files[0].size / 1024) / 1024).toFixed(4); // MB
+            //alert(filesize);
+            if ((filesize + 0) > 10) {
+                alert('上傳檔案不能大於10MB，此檔案有︰' + filesize + " MB，故不能上傳");
+                e.value = "";
+                return;
+            }
+        }
+    };
+</script>
+
+@using (Html.BeginForm("StartEvent", "ChattingBoard", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Event_Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Event_Name, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                @Html.ValidationMessageFor(model => model.Event_Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Picture, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" name="ImageFile" accept="image/*" onchange="checkSize(this);" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Description, 4, 10, new { @class = "form-control", @autocomplete = "off", @placeholder = "請輸入" })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Public_Event, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.CheckBox("Public_Event", true)            <span>不勾的話，只有知道活動連結的人才能找得到活動的入口</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
